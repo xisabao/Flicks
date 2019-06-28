@@ -30,7 +30,7 @@ public class MovieListActivity extends AppCompatActivity {
     public final static String API_BASE_URL = "https://api.themoviedb.org/3";
     // the parameter name for the API key
     public final static String API_KEY_PARAM = "api_key";
-    // the API key -- TODO move to a secure location
+
     // tag for logging from this activity
     public final static String TAG = "MovieListActivity";
 
@@ -59,7 +59,7 @@ public class MovieListActivity extends AppCompatActivity {
         adapter = new MovieAdapter(movies);
 
         // resolve the recycler view and connect a layout manager and the adapter
-        rvMovies = (RecyclerView) findViewById(R.id.rvMovies);
+        rvMovies = findViewById(R.id.rvMovies);
         rvMovies.setLayoutManager(new LinearLayoutManager(this));
         rvMovies.setAdapter(adapter);
 

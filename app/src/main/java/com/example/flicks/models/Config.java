@@ -3,7 +3,9 @@ package com.example.flicks.models;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
+@Parcel
 public class Config {
     // the base url for loading images
     String imageBaseUrl;
@@ -12,6 +14,7 @@ public class Config {
     // the backdrop size to use when fetching images
     String backdropSize;
 
+    public Config() {};
 
     public Config(JSONObject object) throws JSONException {
         JSONObject images = object.getJSONObject("images");

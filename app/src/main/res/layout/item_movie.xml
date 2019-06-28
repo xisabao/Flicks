@@ -2,11 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="5dp"
+    android:layout_margin="8dp"
     android:layout_width="match_parent" android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/ivPosterImage"
+        android:layout_marginTop="24dp"
         android:layout_width="90dp"
         android:layout_height="135dp"
         android:layout_marginRight="5dp"
@@ -22,6 +23,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:textColor="#FFF"
         android:text="Movie Title"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,6 +38,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:textColor="#e8e8e8"
         android:text="Overview and synopsis"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivPosterImage"

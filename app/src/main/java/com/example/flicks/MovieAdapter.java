@@ -118,10 +118,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // lookup view objects by id
-            ivPosterImage = (ImageView) itemView.findViewById(R.id.ivPosterImage);
-            ivBackdropImage = (ImageView) itemView.findViewById(R.id.ivBackdropImage);
-            tvOverview = (TextView) itemView.findViewById((R.id.tvOverview));
-            tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
+            ivPosterImage = itemView.findViewById(R.id.ivPosterImage);
+            ivBackdropImage = itemView.findViewById(R.id.ivBackdropImage);
+            tvOverview = itemView.findViewById((R.id.tvOverview));
+            tvTitle = itemView.findViewById(R.id.tvTitle);
             // add this as the itemView's OnClickListener
             itemView.setOnClickListener(this);
         }
@@ -138,6 +138,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
                 // serialize the movie using parceler, use its short name as a key
                 intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
+                intent.putExtra(Config.class.getSimpleName(), Parcels.wrap(config));
                 // show the activity
                 context.startActivity(intent);
             }

@@ -12,6 +12,7 @@ public class Movie {
     public String posterPath; // only the path
     public String backdropPath;
 
+    public Integer id;
     Double voteAverage;
 
     public Movie() {}
@@ -19,6 +20,7 @@ public class Movie {
     // initialize from JSON data
     public Movie(JSONObject object) throws JSONException {
         title = object.getString("title");
+        id = object.getInt("id");
         overview = object.getString("overview");
         posterPath = object.getString("poster_path");
         backdropPath = object.getString("backdrop_path");
