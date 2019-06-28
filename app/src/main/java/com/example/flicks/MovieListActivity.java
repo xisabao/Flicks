@@ -8,12 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.flicks.models.Config;
+import com.example.flicks.models.Movie;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
-import com.example.flicks.models.Movie;
-import com.example.flicks.models.Config;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +20,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 public class MovieListActivity extends AppCompatActivity {
@@ -40,7 +41,7 @@ public class MovieListActivity extends AppCompatActivity {
     // the list of currently playing movies
     ArrayList<Movie> movies;
     // the recycler view
-    RecyclerView rvMovies;
+    @BindView(R.id.rvMovies) RecyclerView rvMovies;
     // the adapter wired to the recycler view
     MovieAdapter adapter;
     // image config
@@ -51,6 +52,7 @@ public class MovieListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_list);
+        ButterKnife.bind(this);
         // initialize the client
         client = new AsyncHttpClient();
         // initialize the list of movies
@@ -59,7 +61,6 @@ public class MovieListActivity extends AppCompatActivity {
         adapter = new MovieAdapter(movies);
 
         // resolve the recycler view and connect a layout manager and the adapter
-        rvMovies = findViewById(R.id.rvMovies);
         rvMovies.setLayoutManager(new LinearLayoutManager(this));
         rvMovies.setAdapter(adapter);
 

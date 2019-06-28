@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +23,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcels;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -32,10 +35,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
     Config config;
 
     // the view objects
-    TextView tvTitle;
-    TextView tvOverview;
-    ImageView ivBackdrop;
-    RatingBar rbVoteAverage;
+    @BindView(R.id.tvTitle) TextView tvTitle;
+    @BindView(R.id.tvOverview) TextView tvOverview;
+    @Nullable
+    @BindView(R.id.ivBackdrop) ImageView ivBackdrop;
+    @BindView(R.id.rbVoteAverage) RatingBar rbVoteAverage;
 
     String ytKey;
 
@@ -43,12 +47,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
-
-        // resolve the view objects
-        tvTitle = findViewById(R.id.tvTitle);
-        tvOverview = findViewById(R.id.tvOverview);
-        rbVoteAverage = findViewById(R.id.rbVoteAverage);
-        ivBackdrop = findViewById(R.id.ivBackdrop);
+        ButterKnife.bind(this);
 
         ytKey = null;
 
@@ -119,13 +118,13 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     }
 
                 } catch (JSONException e) {
-                    //logError("Failed to parse now playing movies", e, true);
+                    Log.e("Movie Details", "Failed to parse videos results: ", e);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                //logError("Failed to get data from now_playing endpoint", throwable, true);
+                Log.e("Movie Details", "Failed to reach videos endpoint");
             }
         });
 
