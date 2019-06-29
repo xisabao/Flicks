@@ -23,32 +23,31 @@
 
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="224dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:textColor="#FFF"
         android:text="Movie Title"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivBackdrop"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/ivBackdropImage"
+        app:layout_constraintTop_toTopOf="@+id/ivBackdropImage" />
 
     <TextView
         android:id="@+id/tvOverview"
-        android:layout_width="222dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:textColor="#e8e8e8"
         android:text="TextView"
+        android:textColor="#e8e8e8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivBackdrop"
+        app:layout_constraintStart_toEndOf="@+id/ivBackdropImage"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>
