@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,6 +57,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
         Log.d("MovieDetailsActivity", String.format("Showing details for '%s'", movie.getTitle()));
         config = Parcels.unwrap(getIntent().getParcelableExtra(Config.class.getSimpleName()));
 
+        getVideos();
+
         // set the title and overview
         tvTitle.setText(movie.getTitle());
         tvOverview.setText(movie.getOverview());
@@ -74,7 +77,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 .placeholder(R.drawable.flicks_backdrop_placeholder)
                 .error(R.drawable.flicks_backdrop_placeholder)
                 .into(ivBackdrop);
-        getVideos();
 
         setupImageViewListener();
 
@@ -85,13 +87,18 @@ public class MovieDetailsActivity extends AppCompatActivity {
         ivBackdrop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // create the new activity
-                Intent i = new Intent(MovieDetailsActivity.this, MovieTrailerActivity.class);
-                // pass the data being edited
-                i.putExtra("video_id", ytKey);
+                Log.d("MovieDetailsActivity", "YTKEY: " + ytKey);
+                if (ytKey != null) {
+                    // create the new activity
+                    Intent i = new Intent(MovieDetailsActivity.this, MovieTrailerActivity.class);
+                    // pass the data being edited
+                    i.putExtra("video_id", ytKey);
 
-                //display the activity
-                startActivity(i);
+                    //display the activity
+                    startActivity(i);
+                } else {
+                    Toast.makeText(getApplicationContext(), "No YouTube video found", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -110,21 +117,29 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 // load the results into movies list
                 try {
                     JSONArray results = response.getJSONArray("results");
-                    // iterate through result set and create Movie objects
-                    if (!results.isNull(0)) {
-                        JSONObject video = results.getJSONObject(0);
-                        ytKey =  video.getString("key");
-                        Log.d("MovieDetails", "Got youtube key: " + ytKey);
+                    int i = 0;
+                    // find Youtube key in results
+                    while (!results.isNull(i)) {
+                        JSONObject video = results.getJSONObject(i);
+                        if (video.getString("site").equals("YouTube")) {
+                            ytKey = video.getString("key");
+                            Log.d("MovieDetailsActivity", "Found youtube key: " + ytKey);
+                            break;
+                        }
+                        i++;
+                    }
+                    if (ytKey == null) {
+                        Log.d("MovieDetailsActivity", "Couldn't find YT key");
                     }
 
                 } catch (JSONException e) {
-                    Log.e("Movie Details", "Failed to parse videos results: ", e);
+                    Log.e("MovieDetailsActivity", "Failed to parse videos results: ", e);
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.e("Movie Details", "Failed to reach videos endpoint");
+                Log.e("MovieDetailsActivity", "Failed to reach videos endpoint");
             }
         });
 
